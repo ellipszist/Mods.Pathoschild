@@ -34,7 +34,7 @@ namespace Pathoschild.Stardew.Automate
         public Item Sample { get; }
 
         /// <inheritdoc />
-        public ItemType Type { get; }
+        public string Type { get; }
 
         /// <inheritdoc />
         public int Count { get; private set; }
@@ -50,7 +50,7 @@ namespace Pathoschild.Stardew.Automate
         public TrackedItem(Item item, Action<Item>? onReduced = null, Action<Item>? onEmpty = null)
         {
             this.Item = item ?? throw new InvalidOperationException("Can't track a null item stack.");
-            this.Type = (ItemType)item.GetItemType();
+            this.Type = item.GetItemQualifier();
             this.Sample = this.GetNewStack(item);
             this.OnReduced = onReduced;
             this.OnEmpty = onEmpty;

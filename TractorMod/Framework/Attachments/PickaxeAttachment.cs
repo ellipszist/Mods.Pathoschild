@@ -24,7 +24,7 @@ namespace Pathoschild.Stardew.TractorMod.Framework.Attachments
 
         /// <summary>The axe upgrade levels needed to break supported resource clumps.</summary>
         /// <remarks>Derived from <see cref="ResourceClump.performToolAction"/>.</remarks>
-        private readonly IDictionary<int, int> ResourceUpgradeLevelsNeeded = new Dictionary<int, int>
+        private readonly IDictionary<string, int> ResourceUpgradeLevelsNeeded = new Dictionary<string, int>
         {
             [ResourceClump.meteoriteIndex] = Tool.gold,
             [ResourceClump.boulderIndex] = Tool.steel

@@ -23,7 +23,7 @@ namespace Pathoschild.Stardew.TractorMod.Framework.Attachments
 
         /// <summary>The axe upgrade levels needed to break supported resource clumps.</summary>
         /// <remarks>Derived from <see cref="ResourceClump.performToolAction"/>.</remarks>
-        private readonly IDictionary<int, int> ResourceUpgradeLevelsNeeded = new Dictionary<int, int>
+        private readonly IDictionary<string, int> ResourceUpgradeLevelsNeeded = new Dictionary<string, int>
         {
             [ResourceClump.stumpIndex] = Tool.copper,
             [ResourceClump.hollowLogIndex] = Tool.steel
@@ -197,8 +197,7 @@ namespace Pathoschild.Stardew.TractorMod.Framework.Attachments
                 // the game doesn't reliably track heavy tappers, so we need to check manually
                 || (
                     location.objects.TryGetValue(tile, out SObject obj)
-                    && obj.bigCraftable.Value
-                    && obj.ParentSheetIndex is 105 or 264
+                    && obj.IsTapper()
                 );
         }
     }

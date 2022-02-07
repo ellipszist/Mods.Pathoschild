@@ -9,8 +9,8 @@ namespace Pathoschild.Stardew.Automate.Framework.Models
         /// <summary>The English name for the floor item.</summary>
         public string Name { get; }
 
-        /// <summary>The item's unique ID.</summary>
-        public int ItemId { get; }
+        /// <summary>The item's unqualified item ID.</summary>
+        public string ItemId { get; }
 
 
         /*********
@@ -18,8 +18,8 @@ namespace Pathoschild.Stardew.Automate.Framework.Models
         *********/
         /// <summary>Construct an instance.</summary>
         /// <param name="name">The English name for the floor item.</param>
-        /// <param name="itemId">The item's unique ID.</param>
-        public DataModelFloor(string name, int itemId)
+        /// <param name="itemId">The item's unqualified item ID.</param>
+        public DataModelFloor(string name, string itemId)
         {
             this.Name = name;
             this.ItemId = itemId;
