@@ -1,6 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release for Stardew Valley 1.6
+* Updated for Stardew Valley 1.6.
+
 ## Upcoming release
 * Fixed crash if the game window is resized while transitioning to the co-op screen.
 
