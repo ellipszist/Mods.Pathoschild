@@ -3,6 +3,8 @@
     <Version>4.15.5</Version>
     <RootNamespace>Pathoschild.Stardew.TractorMod</RootNamespace>
     <TargetFramework>net5.0</TargetFramework>
+
+    <TranslationClassBuilder_AddGetByKey>true</TranslationClassBuilder_AddGetByKey>
   </PropertyGroup>
 
   <ItemGroup>

@@ -56,6 +56,9 @@ namespace Pathoschild.Stardew.TractorMod
         /// <summary>The configured key bindings.</summary>
         private ModConfigKeys Keys => this.Config.Controls;
 
+        /// <summary>Manages audio effects for the tractor.</summary>
+        private AudioManager AudioManager = null!; // set in Entry
+
         /// <summary>Manages textures loaded for the tractor and garage.</summary>
         private TextureManager TextureManager = null!; // set in Entry
 
@@ -81,6 +84,7 @@ namespace Pathoschild.Stardew.TractorMod
 
             // init
             I18n.Init(helper.Translation);
+            this.AudioManager = new AudioManager(this.Helper.DirectoryPath, isActive: () => this.Config.SoundEffects == TractorSoundType.Tractor);
             this.TextureManager = new(
                 directoryPath: this.Helper.DirectoryPath,
                 publicAssetBasePath: this.PublicAssetBasePath,
@@ -89,7 +93,7 @@ namespace Pathoschild.Stardew.TractorMod
             );
             this.TractorManagerImpl = new(() =>
             {
-                var manager = new TractorManager(this.Config, this.Keys, this.Helper.Reflection, () => this.TextureManager.BuffIconTexture);
+                var manager = new TractorManager(this.Config, this.Keys, this.Helper.Reflection, () => this.TextureManager.BuffIconTexture, this.AudioManager);
                 this.UpdateConfigFor(manager);
                 return manager;
             });
@@ -214,7 +218,7 @@ namespace Pathoschild.Stardew.TractorMod
 
                         // normalize tractor
                         if (tractor != null)
-                            TractorManager.SetTractorInfo(tractor);
+                            TractorManager.SetTractorInfo(tractor, disableHorseSounds: this.Config.SoundEffects != TractorSoundType.Horse);
 
                         // normalize ownership
                         garage.owner.Value = 0;
@@ -233,6 +237,7 @@ namespace Pathoschild.Stardew.TractorMod
         /// <param name="e">The event data.</param>
         private void OnAssetRequested(object? sender, AssetRequestedEventArgs e)
         {
+            this.AudioManager.OnAssetRequested(e);
             this.TextureManager.OnAssetRequested(e);
 
             if (e.NameWithoutLocale.IsEquivalentTo("Data/BuildingsData"))
@@ -313,7 +318,7 @@ namespace Pathoschild.Stardew.TractorMod
                     foreach (Horse horse in horses)
                     {
                         if (tractorIDs.Contains(horse.HorseId) && !TractorManager.IsTractor(horse))
-                            TractorManager.SetTractorInfo(horse);
+                            TractorManager.SetTractorInfo(horse, disableHorseSounds: this.Config.SoundEffects != TractorSoundType.Horse);
                     }
                 }
             }
@@ -542,7 +547,7 @@ namespace Pathoschild.Stardew.TractorMod
             if (tractor == null && this.Config.CanSummonWithoutGarage && Context.IsMainPlayer)
             {
                 tractor = new Horse(Guid.NewGuid(), 0, 0);
-                TractorManager.SetTractorInfo(tractor);
+                TractorManager.SetTractorInfo(tractor, disableHorseSounds: this.Config.SoundEffects != TractorSoundType.Horse);
                 this.TextureManager.ApplyTextures(tractor, this.IsTractor);
             }
 
