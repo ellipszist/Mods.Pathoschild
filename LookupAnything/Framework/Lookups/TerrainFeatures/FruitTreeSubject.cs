@@ -60,7 +60,7 @@ namespace Pathoschild.Stardew.LookupAnything.Framework.Lookups.TerrainFeatures
                     yield return new GenericField(label, I18n.FruitTree_NextFruit_StruckByLightning(count: tree.struckByLightningCountdown.Value));
                 else if (!this.IsInSeason(tree, nextFruit.Season))
                     yield return new GenericField(label, I18n.FruitTree_NextFruit_OutOfSeason());
-                else if (tree.fruitsOnTree.Value == FruitTree.maxFruitsOnTrees)
+                else if (tree.fruitObjectsOnTree.Count >= FruitTree.maxFruitsOnTrees)
                     yield return new GenericField(label, I18n.FruitTree_NextFruit_MaxFruit());
                 else
                     yield return new GenericField(label, I18n.Generic_Tomorrow());
