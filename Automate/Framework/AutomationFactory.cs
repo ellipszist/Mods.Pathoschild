@@ -31,9 +31,6 @@ namespace Pathoschild.Stardew.Automate.Framework
         /// <summary>Simplifies access to private game code.</summary>
         private readonly IReflectionHelper Reflection;
 
-        /// <summary>The internal Automate data that can't be derived automatically.</summary>
-        private readonly DataModel Data;
-
         /// <summary>Whether the Better Junimos mod is installed.</summary>
         private readonly bool IsBetterJunimosLoaded;
 
@@ -45,14 +42,12 @@ namespace Pathoschild.Stardew.Automate.Framework
         /// <param name="config">The mod configuration.</param>
         /// <param name="monitor">Encapsulates monitoring and logging.</param>
         /// <param name="reflection">Simplifies access to private game code.</param>
-        /// <param name="data">The internal Automate data that can't be derived automatically.</param>
         /// <param name="isBetterJunimosLoaded">Whether the Better Junimos mod is installed.</param>
-        public AutomationFactory(Func<ModConfig> config, IMonitor monitor, IReflectionHelper reflection, DataModel data, bool isBetterJunimosLoaded)
+        public AutomationFactory(Func<ModConfig> config, IMonitor monitor, IReflectionHelper reflection, bool isBetterJunimosLoaded)
         {
             this.Config = config;
             this.Monitor = monitor;
             this.Reflection = reflection;
-            this.Data = data;
             this.IsBetterJunimosLoaded = isBetterJunimosLoaded;
         }
 
@@ -312,9 +307,11 @@ namespace Pathoschild.Stardew.Automate.Framework
                     return config.ConnectorNames.Contains(item.Name);
 
                 case Flooring floor:
+                    string? itemId = floor.GetData()?.ItemID;
+
                     return
-                        this.Data.FloorNames.TryGetValue(floor.whichFloor.Value, out DataModelFloor? entry)
-                        && config.ConnectorNames.Contains(entry.Name);
+                        !string.IsNullOrWhiteSpace(itemId)
+                        && config.ConnectorNames.Contains(Utility.GetItemNameForItemID(itemId));
 
                 default:
                     return false;
