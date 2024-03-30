@@ -9,6 +9,9 @@ When releasing a format change, don't forget to update the smapi.io/json schema!
 
 
 -->
+## Upcoming release
+* Added support for migrating Json Assets items to Content Patcher using the [`MigrateIds` trigger action](author-guide/trigger-actions.md#migrateids) (even if the Json Assets content pack which added them is no longer installed).
+
 ## 2.0.2
 Released 26 March 2024 for SMAPI 4.0.0 or later.
 
