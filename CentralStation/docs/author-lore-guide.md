@@ -85,7 +85,6 @@ Here are the current strange occurrences:
 <tr>
 <td>
 
-5+ visits  
 5% chance
 
 </td>
@@ -99,7 +98,6 @@ random drink). The messages don't repeat within the same session unless you've a
 <tr>
 <td>
 
-5+ visits  
 5% chance
 
 </td>
@@ -126,7 +124,7 @@ don't repeat within the same session unless you've already seen the others.
 <tr>
 <td>
 
-5+ visits  
+15+ visits  
 0.5% chance
 
 </td>

@@ -36,16 +36,30 @@ internal class Constant
     /****
     ** Strange occurrences
     ****/
-    /// <summary>The minimum number of times the player needs to visit the central station before rare strange occurrences can happen.</summary>
-    /// <remarks>This avoids confusion due to strange things happening the first times the player visits the station, before they become familiar with the baseline station.</remarks>
-    public const int MinVisitsBeforeStrangeOccurrences = 5;
+    /// <summary>The minimum Central Station visits for the player to get a free item and strange message from the cola machine.</summary>
+    public const int StrangeColaMachineMinVisits = 1;
 
-    /// <summary>The probability of showing a strange interaction when performing an action in the central station.</summary>
-    public const float StrangeInteractionChance = 0.05f;
+    /// <summary>The chance of getting a free item and strange message from the cola machine, as a value between 0 (never) and 1 (always).</summary>
+    public const float StrangeColaMachineChance = 0.05f;
 
-    /// <summary>The minimum time when the central station may be dark with most things closed.</summary>
+    /// <summary>The minimum Central Station visits for the player to hear strange sounds at the exit door.</summary>
+    public const int StrangeSoundsMinVisits = 1;
+
+    /// <summary>The chance of hearing strange sounds at the exit door, as a value between 0 (never) and 1 (always).</summary>
+    public const float StrangeSoundsChance = 0.05f;
+
+    /// <summary>The minimum Central Station visits for the player to see a strange interaction message.</summary>
+    public const int StrangeMessageMinVisits = 5;
+
+    /// <summary>The chance of the player seeing a strange interaction message, as a value between 0 (never) and 1 (always).</summary>
+    public const float StrangeMessageChance = 0.05f;
+
+    /// <summary>The minimum Central Station visits for the player to see the station being dark and closed.</summary>
+    public const int DarkStationMinVisits = 15;
+
+    /// <summary>The minimum time of day for the player to see the station being dark and closed.</summary>
     public const int DarkStationMinTime = 2400;
 
-    /// <summary>The probability of the central station being dark after <see cref="DarkStationMinTime"/>, as a value between 0 (never) and 1 (always).</summary>
+    /// <summary>The chance of the central station being dark and closed, as a value between 0 (never) and 1 (always).</summary>
     public const float DarkStationChance = 0.005f;
 }

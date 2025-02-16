@@ -113,7 +113,7 @@ internal class ContentManager
                 this.ContentHelper.InvalidateCache($"Maps/{Constant.ModId}");
                 e.NewLocation.resetForPlayerEntry();
             }
-            else if (this.CanSeeStrangeOccurrences() && Game1.timeOfDay >= Constant.DarkStationMinTime && Game1.random.NextBool(Constant.DarkStationChance))
+            else if (this.GetStationVisits() >= Constant.DarkStationMinVisits && Game1.timeOfDay >= Constant.DarkStationMinTime && Game1.random.NextBool(Constant.DarkStationChance))
             {
                 this.StationDark.Value = true;
                 Game1.stopMusicTrack(MusicContext.Default);
@@ -123,10 +123,10 @@ internal class ContentManager
         }
     }
 
-    /// <summary>Get whether the player can see rare strange occurrences in the Central Station.</summary>
-    public bool CanSeeStrangeOccurrences()
+    /// <summary>Get the number of times the player has visited the Central Station.</summary>
+    public uint GetStationVisits()
     {
-        return Game1.stats.Get(Constant.TimesVisitedStatKey) >= Constant.MinVisitsBeforeStrangeOccurrences;
+        return Game1.stats.Get(Constant.TimesVisitedStatKey);
     }
 
     /// <summary>Get the stops which can be selected from the current location.</summary>

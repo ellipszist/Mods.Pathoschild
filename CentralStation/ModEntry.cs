@@ -34,10 +34,10 @@ internal class ModEntry : Mod
     /// <summary>Whether the Bus Locations mod is installed, regardless of whether it has any stops loaded.</summary>
     private bool HasBusLocationsMod;
 
-    /// <summary>Whether the player received a free item from a cola machine since they arrived.</summary>
+    /// <summary>Whether the player received a free item from a cola machine since they arrived in the Central Station.</summary>
     private readonly PerScreen<bool> GotRareColaDrop = new();
 
-    /// <summary>Whether the player saw a rare 'strange occurrence' in the Central Station since they arrived.</summary>
+    /// <summary>Whether the player saw a rare strange occurrence since they arrived in the Central Station, aside from a strange cola machine or the dark station.</summary>
     private readonly PerScreen<bool> SawStrangeOccurrence = new();
 
 
@@ -144,7 +144,7 @@ internal class ModEntry : Mod
         void ShowTickets() => this.OpenMenu(StopNetworks.Boat | StopNetworks.Bus | StopNetworks.Train);
 
         // rare chance of showing a secret message before the ticket menu
-        if (this.ContentManager.CanSeeStrangeOccurrences() && !this.SawStrangeOccurrence.Value && Game1.random.NextBool(Constant.StrangeInteractionChance))
+        if (this.ContentManager.GetStationVisits() >= Constant.StrangeMessageMinVisits && !this.SawStrangeOccurrence.Value && Game1.random.NextBool(Constant.StrangeMessageChance))
         {
             this.SawStrangeOccurrence.Value = true;
 
@@ -184,7 +184,7 @@ internal class ModEntry : Mod
         const string jojaColaId = "(O)167";
 
         // rare chance of free item, else show dialogue to buy Joja cola
-        if (this.ContentManager.CanSeeStrangeOccurrences() && !this.GotRareColaDrop.Value && Game1.random.NextBool(Constant.StrangeInteractionChance))
+        if (this.ContentManager.GetStationVisits() >= Constant.StrangeColaMachineMinVisits && !this.GotRareColaDrop.Value && Game1.random.NextBool(Constant.StrangeColaMachineChance))
         {
             this.GotRareColaDrop.Value = true;
 
@@ -222,7 +222,7 @@ internal class ModEntry : Mod
     private bool OnCentralExitDoorAction()
     {
         // rare chance of strange sounds, else locked-door sound
-        if (this.ContentManager.CanSeeStrangeOccurrences() && !this.SawStrangeOccurrence.Value && Game1.random.NextBool(Constant.StrangeInteractionChance))
+        if (this.ContentManager.GetStationVisits() >= Constant.StrangeSoundsMinVisits && !this.SawStrangeOccurrence.Value && Game1.random.NextBool(Constant.StrangeSoundsChance))
         {
             this.SawStrangeOccurrence.Value = true;
 
