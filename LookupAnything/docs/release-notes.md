@@ -5,6 +5,7 @@
 * Added map properties to tile lookup.
 * Overhauled tile lookups so they're much easier to read and show more info.
 * Fixed overlapping text when displayed data contains explicit line breaks (e.g. some custom machine recipes).
+* Improved translations. Thanks to MakinDay (updated Italian)!
 
 ## 1.48.1
 Released 11 February 2025 for SMAPI 4.1.10 or later.
